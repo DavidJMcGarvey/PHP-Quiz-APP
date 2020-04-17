@@ -2,9 +2,9 @@
 // Start the session
 start_session();
 // Include questions from the questions.php file
-include('questions.php');
+include 'inc/questions.php';
 // Make a variable to hold the total number of questions to ask
-$totalQuestions;
+$totalQuestions = 7;
 $awesomes = 0;
 $bummers = 0;
 // Make a variable to hold the toast message and set it to an empty string
@@ -40,8 +40,11 @@ if (isset($_POST)) {
         1. Create a session variable to hold used indexes and initialize it to an empty array.
         2. Set the show score variable to false.
 */
+// if (isset($_SESSION['answer'])) {
 
-
+// }
+// echo '<h1>' . $_POST['answer'] . '</h1>';
+// exit();
 /*
   If the number of used indexes in our session variable is equal to the total number of questions
   to be asked:
@@ -63,3 +66,4 @@ if (isset($_POST)) {
             firstIncorrectAnswer, and secondIncorrect answer from the variable in step e.
         h. Shuffle the array from step g.
 */
+?>
