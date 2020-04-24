@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +12,18 @@
     <div class="container">
         <div id="quiz-box">
             <?php
-            include 'inc/quiz.php';
-            echo '<p class="breadcrumbs">Question # of ' . $totalQuestions . '</p>';
-            echo '<p class="quiz">What is 54 + 71?</p>';
-            echo '<form action="index.php" method="post">';
-                echo '<input type="hidden" name="id" value="0" />';
-                echo '<input type="submit" class="btn" name="answer" value="135" />';
-                echo '<input type="submit" class="btn" name="answer" value="125" />';
-                echo '<input type="submit" class="btn" name="answer" value="115" />';
-            echo '</form>';
+
+                include 'inc/questions.php';
+                include 'inc/quiz.php';
+                // echo $toast;
+                echo '<p class="breadcrumbs">Question #1 of #' . $totalQuestions . '</p>';
+                echo '<p class="quiz">What is ' . $questions[0]['leftAdder'] . ' + ' . $questions[0]['rightAdder'] . '?</p>';
+                echo '<form action="index.php" method="post">';
+                    echo '<input type="hidden" name="id" value="0" />';
+                    echo '<input type="submit" class="btn" name="answer" value="' . $questions[0]['firstIncorrectAnswer'] . '" />';
+                    echo '<input type="submit" class="btn" name="answer" value="' . $questions[0]['correctAnswer'] . '" />';
+                    echo '<input type="submit" class="btn" name="answer" value="' . $questions[0]['secondIncorrectAnswer'] . '" />';
+                echo '</form>';
             ?>
         </div>
     </div>
