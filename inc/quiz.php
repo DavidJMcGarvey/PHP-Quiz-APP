@@ -3,7 +3,7 @@
 // Include questions from the questions.php file
 include 'inc/questions.php';
 // Make a variable to hold the total number of questions to ask
-$totalQuestions = 7;
+$totalQuestions = count($questions);
 $awesomes = 0;
 $bummers = 0;
 // Make a variable to hold the toast message and set it to an empty string
@@ -24,8 +24,9 @@ $currentQuestion = null;
         Otherwise:
             1. Assign a bummer message to the toast variable.
 */
-if ($_SERVER['REQUEST_METHOD'] === "$_POST") {
-    if ($_POST['answer'] == $questions['correctAnswer']) {
+// var_dump($_POST['answer']);
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    if ($_POST['answer'] === $questions[0]['correctAnswer']) {
         $toast = 'Awesome!';
         $awesomes += 1;
     } else {
@@ -40,13 +41,39 @@ if ($_SERVER['REQUEST_METHOD'] === "$_POST") {
         2. Set the show score variable to false.
 */
 for ($i = 1; $i <= count($questions); $i++) {
-    if (isset($_SESSION['answer'][$i])) {
-        echo '<h1>' . $_POST['answer'] . '</h1>';
+    if (isset($_SESSION[$i]['answer'])) {
+        echo '<h1>' . $_POST[$i]['answer'] . '</h1>';
     }
 }
 
-echo $awesomes;
-$answer =  '<h1>' . $_POST['answer'] . '</h1>';
+
+// the getRandomQuestion function
+function getRandomQuestion($arr) {
+    global $questions;
+    $questionsCount = count($arr) - 1;
+    $random = rand(0, $questionsCount);
+    return $questions[$random];
+  }
+// Create the printQuote funtion and name it printQuote
+function printQuestion() {
+    global $questions;
+    $question = getRandomQuestion($questions);
+    $leftAdder = $question['leftAdder'];
+    $rightAdder = $question['rightAdder'];
+    $correctAnswer = $question['correctAnswer'];
+    $firstIncorrectAnswer = $question['firstIncorrectAnswer'];
+    $secondIncorrectAnswer = $question['secondIncorrectAnswer'];
+  
+    echo '<p class="breadcrumbs">Question #1 of #' . $totalQuestions . '</p>';
+    echo '<p class="quiz">What is ' . $leftAdder . ' + ' . $rightAdder . '?</p>';
+    echo '<form action="index.php" method="post">';
+        echo '<input type="hidden" name="id" value="0" />';
+        echo '<input type="submit" class="btn" name="answer" value="' . $firstIncorrectAnswer . '" />';
+        echo '<input type="submit" class="btn" name="answer" value="' . $correctAnswer . '" />';
+        echo '<input type="submit" class="btn" name="answer" value="' . $secondIncorrectAnswer . '" />';
+    echo '</form>';
+
+  }
 
 /*
   If the number of used indexes in our session variable is equal to the total number of questions

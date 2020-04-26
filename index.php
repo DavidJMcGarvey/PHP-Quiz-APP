@@ -16,14 +16,8 @@
                 include 'inc/questions.php';
                 include 'inc/quiz.php';
                 // echo $toast;
-                echo '<p class="breadcrumbs">Question #1 of #' . $totalQuestions . '</p>';
-                echo '<p class="quiz">What is ' . $questions[0]['leftAdder'] . ' + ' . $questions[0]['rightAdder'] . '?</p>';
-                echo '<form action="index.php" method="post">';
-                    echo '<input type="hidden" name="id" value="0" />';
-                    echo '<input type="submit" class="btn" name="answer" value="' . $questions[0]['firstIncorrectAnswer'] . '" />';
-                    echo '<input type="submit" class="btn" name="answer" value="' . $questions[0]['correctAnswer'] . '" />';
-                    echo '<input type="submit" class="btn" name="answer" value="' . $questions[0]['secondIncorrectAnswer'] . '" />';
-                echo '</form>';
+
+                printQuestion()
             ?>
         </div>
     </div>
